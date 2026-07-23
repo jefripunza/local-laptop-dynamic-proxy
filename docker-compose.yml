@@ -10,6 +10,11 @@ services:
     expose:
       - "8080"
 
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+
     volumes:
       - ./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
 
