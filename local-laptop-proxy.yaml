@@ -1,0 +1,20 @@
+http:
+  routers:
+    local-laptop:
+      entryPoints:
+        - https
+      rule: HostRegexp(`^local-laptop-[0-9]+\.jefripunza\.com$`)
+      service: local-laptop-dynamic
+      tls:
+        certresolver: letsencrypt-dns
+        domains:
+          - main: "jefripunza.com"
+            sans:
+              - "*.jefripunza.com"
+
+  services:
+    local-laptop-dynamic:
+      loadBalancer:
+        servers:
+          - url: "http://local-laptop-dynamic-proxy:8080"
+        passHostHeader: true
