@@ -1,0 +1,18 @@
+services:
+  local-laptop-dynamic-proxy:
+    image: openresty/openresty:alpine
+    container_name: local-laptop-dynamic-proxy
+    restart: unless-stopped
+
+    networks:
+      - coolify
+
+    expose:
+      - "8080"
+
+    volumes:
+      - ./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
+
+networks:
+  coolify:
+    external: true
